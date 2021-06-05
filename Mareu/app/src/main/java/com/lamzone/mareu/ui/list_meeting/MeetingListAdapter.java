@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.model.User;
 
 import java.util.List;
 
@@ -47,27 +48,14 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MeetingListViewHolder holder, int position) {
-
         Meeting meeting = mMeeting.get(position);
-        holder.meetingName.setText(meeting.getSubject());
-        holder.participantsName.setText(meeting.getParticipants().toString());
-
-        /*context = holder.itemView.getContext();
-        Neighbour neighbour = mNeighbours.get(position);
-        holder.mNeighbourName.setText(neighbour.getName());
-
-        Glide.with(holder.mNeighbourAvatar.getContext())
-                .load(neighbour.getAvatarUrl())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.mNeighbourAvatar);
-
-        holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));
-
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ShowNeighbourActivity.class);
-            intent.putExtra("neighbour", neighbour);
-            ActivityCompat.startActivity(context, intent, null);
-        });*/
+        String textMeeting = meeting.getSubject() + " - " + meeting.getHour() + " - " + meeting.getLocation();
+        StringBuilder textParticipants = new StringBuilder();
+        for (User user : meeting.getParticipants()){
+            textParticipants.append(user.getName()).append("@lamzone.com").append(", ");
+        }
+        holder.meetingName.setText(textMeeting);
+        holder.participantsName.setText(textParticipants);
     }
 
     @Override
