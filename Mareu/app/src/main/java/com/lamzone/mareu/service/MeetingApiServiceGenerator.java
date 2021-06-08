@@ -24,13 +24,13 @@ public abstract class MeetingApiServiceGenerator {
     );
 
     public static List<User> DUMMY_USER = Arrays.asList(
-        new User(1, "maxime"),
-        new User(2, "paul"),
-        new User(3, "amandine"),
-        new User(4, "alex"),
-        new User(5, "caroline"),
-        new User(6, "viviane"),
-        new User(7, "luc")
+        new User(1, "maxime@lamzone.com"),
+        new User(2, "paul@lamzone.com"),
+        new User(3, "amandine@lamzone.com"),
+        new User(4, "alex@lamzone.com"),
+        new User(5, "caroline@lamzone.com"),
+        new User(6, "viviane@lamzone.com"),
+        new User(7, "luc@lamzone.com")
     );
 
     public static List<Meeting> DUMMY_MEETING = Arrays.asList(

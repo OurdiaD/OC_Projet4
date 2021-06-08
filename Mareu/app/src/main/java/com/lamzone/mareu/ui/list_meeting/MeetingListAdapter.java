@@ -55,12 +55,17 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
         Meeting meeting = mMeeting.get(position);
         String textMeeting = meeting.getLocation().getRoom() + " - " + meeting.getHour() + " - " + meeting.getSubject();
         StringBuilder textParticipants = new StringBuilder();
+        int i = 0;
         for (User user : meeting.getParticipants()){
-            textParticipants.append(user.getName()).append("@lamzone.com").append(", ");
+            textParticipants.append(user.getMail());
+            if (i < meeting.getParticipants().size() -1)
+                textParticipants.append(", ");
+            i++;
         }
         holder.meetingImage.setBackgroundColor(Color.parseColor(meeting.getLocation().getColor()));
         holder.meetingName.setText(textMeeting);
         holder.participantsName.setText(textParticipants);
+        holder.participantsName.setSelected(true);
     }
 
     @Override

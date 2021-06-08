@@ -3,15 +3,15 @@ package com.lamzone.mareu.model;
 public class User {
 
     private long id;
-    private String name;
+    private String mail;
 
-    public User(long id, String name) {
+    public User(long id, String mail) {
         this.id = id;
-        this.name = name;
+        this.mail = mail;
     }
 
-    public User(String name) {
-        this.name = name;
+    public User(String mail) {
+        this.mail = mail;
     }
 
     public long getId() {
@@ -22,11 +22,11 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMail() {
+        return mail;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
