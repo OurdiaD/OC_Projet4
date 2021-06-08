@@ -8,13 +8,13 @@ public class Meeting {
 
     private String subject;
 
-    private String location;
+    private Room location;
 
     private String hour;
 
     private List<User> participants;
 
-    public Meeting(long id, String subject, String location, String hour, List<User> participants) {
+    public Meeting(long id, String subject, Room location, String hour, List<User> participants) {
         this.id = id;
         this.subject = subject;
         this.location = location;
@@ -22,7 +22,7 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public Meeting(String subject, String location, String hour, List<User> participants) {
+    public Meeting(String subject, Room location, String hour, List<User> participants) {
         this.subject = subject;
         this.location = location;
         this.hour = hour;
@@ -45,11 +45,11 @@ public class Meeting {
         this.subject = subject;
     }
 
-    public String getLocation() {
+    public Room getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Room location) {
         this.location = location;
     }
 
