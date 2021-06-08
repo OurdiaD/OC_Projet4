@@ -3,6 +3,7 @@ package com.lamzone.mareu.ui.list_meeting;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
     public void onBindViewHolder(@NonNull MeetingListViewHolder holder, int position) {
         Meeting meeting = mMeeting.get(position);
         String textMeeting = meeting.getLocation().getRoom() + " - " + meeting.getHour() + " - " + meeting.getSubject();
+
         StringBuilder textParticipants = new StringBuilder();
         int i = 0;
         for (User user : meeting.getParticipants()){
@@ -62,10 +64,15 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
                 textParticipants.append(", ");
             i++;
         }
-        holder.meetingImage.setBackgroundColor(Color.parseColor(meeting.getLocation().getColor()));
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setCornerRadii(new float[]{0, 0, 0, 0, 0, 0, 0, 0});
+        shape.setColor(Color.parseColor(meeting.getLocation().getColor()));
+
         holder.meetingName.setText(textMeeting);
         holder.participantsName.setText(textParticipants);
-        holder.participantsName.setSelected(true);
+        holder.meetingImage.setBackground(shape);
     }
 
     @Override
