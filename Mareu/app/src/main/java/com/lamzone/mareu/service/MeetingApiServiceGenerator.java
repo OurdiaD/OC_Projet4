@@ -54,4 +54,10 @@ public abstract class MeetingApiServiceGenerator {
     static List<Meeting> generateMeeting() {
         return new ArrayList<>(DUMMY_MEETING);
     }
+    static List<User> generateUsers() {
+        return new ArrayList<>(DUMMY_USER);
+    }
+    static List<Room> generateRooms() {
+        return new ArrayList<>(DUMMY_ROOM);
+    }
 }
