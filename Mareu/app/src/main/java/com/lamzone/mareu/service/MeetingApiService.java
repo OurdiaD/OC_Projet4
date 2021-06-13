@@ -36,8 +36,8 @@ public class MeetingApiService implements ApiService{
         return rooms;
     }
 
-/*
-    public static List<String> getListString(List<Object> data){
+
+    public static List<String> getListString(List<?> data){
         List<String> list = new ArrayList<>();
         for (Object obj : data){
             if (obj instanceof User){
@@ -47,5 +47,5 @@ public class MeetingApiService implements ApiService{
             }
         }
         return list;
-    }*/
+    }
 }
