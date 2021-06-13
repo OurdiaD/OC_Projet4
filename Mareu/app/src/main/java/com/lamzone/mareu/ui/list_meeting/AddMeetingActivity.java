@@ -16,6 +16,8 @@ import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.databinding.ActivityAddMeetingBinding;
 import com.lamzone.mareu.di.DI;
@@ -45,7 +47,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_add_meeting);
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
         setContentView(view);
@@ -58,7 +59,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     protected void initDropDown(){
         rooms = mApiService.getRooms();
-        //AutoCompleteTextView dropDownRoomView = findViewById(R.id.room_list);
         AutoCompleteTextView dropDownRoomView = binding.roomList;
 
         List<String> dropDownRoomData = new ArrayList<>();
@@ -85,7 +85,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePicker.show(getSupportFragmentManager(), "tag");
+                datePicker.show(getSupportFragmentManager(), "date");
             }
         });
 
@@ -94,8 +94,29 @@ public class AddMeetingActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTimeInMillis(selection);
                 date = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(calendar.getTime());
+                initHourView();
             }
         });
     }
 
+    public void initHourView(){
+        final MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
+                .setTitleText("Select hour")
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .build();
+
+        timePicker.show(getSupportFragmentManager(), "time");
+        timePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int hourSelect = timePicker.getHour();
+                int minuteSelect = timePicker.getMinute();
+
+                hour = hourSelect + " : " + minuteSelect;
+
+                String dateSelected = date + " " + hour;
+                binding.date.setText(dateSelected);
+            }
+        });
+    }
 }
