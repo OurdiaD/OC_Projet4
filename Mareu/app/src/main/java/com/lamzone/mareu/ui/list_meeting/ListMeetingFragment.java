@@ -15,19 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.di.DI;
-import com.lamzone.mareu.service.ApiService;
-
-import java.util.Objects;
+import com.lamzone.mareu.service.meeting.MeetingApiService;
 
 public class ListMeetingFragment extends Fragment {
     private MeetingListAdapter mAdapter;
     RecyclerView mRecyclerView;
-    private ApiService mApiService;
+    private MeetingApiService mApiService;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = DI.getNeighbourApiService();
+        mApiService = DI.getMeetingApiService();
     }
 
     @Nullable

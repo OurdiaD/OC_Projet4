@@ -1,17 +1,18 @@
-package com.lamzone.mareu.service;
+package com.lamzone.mareu.service.meeting;
 
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.model.User;
+import com.lamzone.mareu.service.ApiServiceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingApiService implements ApiService{
+public class MainMeetingApiService implements MeetingApiService {
 
-    private final List<Meeting> meetings = MeetingApiServiceGenerator.generateMeeting();
-    private final List<User> users = MeetingApiServiceGenerator.generateUsers();
-    private final List<Room> rooms = MeetingApiServiceGenerator.generateRooms();
+    private final List<Meeting> meetings = ApiServiceGenerator.generateMeeting();
+
+    private final List<Room> rooms = ApiServiceGenerator.generateRooms();
 
     @Override
     public void createMeeting(Meeting meeting) {
@@ -27,10 +28,7 @@ public class MeetingApiService implements ApiService{
     public List<Meeting> getMeeting() {
         return meetings;
     }
-    @Override
-    public List<User> getUsers() {
-        return users;
-    }
+
     @Override
     public List<Room> getRooms() {
         return rooms;

@@ -34,4 +34,9 @@ public class Room {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return room ;
+    }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class MeetingApiServiceGenerator {
+public abstract class ApiServiceGenerator {
 
     public static List<Room> DUMMY_ROOM = Arrays.asList(
         new Room(1, "Reunion A", "#ecd9d0"),
@@ -51,13 +51,13 @@ public abstract class MeetingApiServiceGenerator {
         ))
     );
 
-    static List<Meeting> generateMeeting() {
+    public static List<Meeting> generateMeeting() {
         return new ArrayList<>(DUMMY_MEETING);
     }
-    static List<User> generateUsers() {
+    public static List<User> generateUsers() {
         return new ArrayList<>(DUMMY_USER);
     }
-    static List<Room> generateRooms() {
+    public static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOM);
     }
 }
