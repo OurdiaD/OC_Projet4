@@ -9,6 +9,7 @@
         <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
         <item name="materialTimePickerTheme">@style/AppTheme.MaterialTimePickerTheme</item>
+        <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Entry</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
