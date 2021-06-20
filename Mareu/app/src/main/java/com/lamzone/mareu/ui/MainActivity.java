@@ -3,6 +3,8 @@ package com.lamzone.mareu.ui;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -35,7 +37,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.filter) {
-            Toast.makeText(MainActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+            FrameLayout filterLayout = findViewById(R.id.filter_layout);
+            if(filterLayout.getVisibility() == View.GONE){
+                filterLayout.setVisibility(View.VISIBLE);
+            } else {
+                filterLayout.setVisibility(View.GONE);
+            }
+
             return true;
         }
 

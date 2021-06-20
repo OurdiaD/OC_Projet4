@@ -5,13 +5,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <FrameLayout
+        android:id="@+id/filter_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filter_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/salle"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                app:chipEndPadding="10dp"
+                app:chipIcon="@drawable/ic_baseline_meeting_room_24"
+                app:chipIconVisible="true"
+                app:chipStartPadding="10dp"
+                app:closeIconEnabled="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filter_date"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                app:chipEndPadding="10dp"
+                app:chipIcon="@drawable/ic_baseline_calendar_today_24"
+                app:chipIconEnabled="true"
+                app:chipIconSize="20dp"
+                app:chipIconVisible="true"
+                app:chipStartPadding="10dp"
+                app:closeIconEnabled="true" />
+        </com.google.android.material.chip.ChipGroup>
+    </FrameLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/meeting_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_layout"
         tools:listitem="@layout/item_list_meeting"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

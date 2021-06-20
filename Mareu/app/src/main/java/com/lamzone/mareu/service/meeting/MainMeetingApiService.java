@@ -40,31 +40,33 @@ public class MainMeetingApiService implements MeetingApiService {
 
     @Override
     public List<Meeting> filterMeeting(@Nullable String date, @Nullable String hour, @Nullable String room) {
-        List<Meeting> meetingsFilter = meetings;
+        List<Meeting> meetingsFilter = new ArrayList<>();
         if (date != null){
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            for (Meeting meeting : meetingsFilter){
+            for (Meeting meeting : meetings){
                 //if (!Objects.equals(dateFormat.parse(date), dateFormat.parse(meeting.getDate()))){
-                if (!Objects.equals(date, meeting.getDate())){
-                    meetingsFilter.remove(meeting);
+                if (Objects.equals(date, meeting.getDate())){
+                    meetingsFilter.add(meeting);
                 }
             }
         }
         if (hour != null){
             SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
-            for (Meeting meeting : meetingsFilter){
-                if (!Objects.equals(hour, meeting.getHour())){
-                    meetingsFilter.remove(meeting);
+            for (Meeting meeting : meetings){
+                if (Objects.equals(hour, meeting.getHour())){
+                    meetingsFilter.add(meeting);
                 }
             }
         }
         if (room != null){
-            for (Meeting meeting : meetingsFilter){
-                if (!Objects.equals(room, meeting.getLocation().getRoom())){
-                    meetingsFilter.remove(meeting);
+            for (Meeting meeting : meetings){
+                if (Objects.equals(room, meeting.getLocation().getRoom())){
+                    meetingsFilter.add(meeting);
                 }
             }
         }
+        if(hour == null && date == null && room == null)
+            return meetings;
         return meetingsFilter;
     }
 
