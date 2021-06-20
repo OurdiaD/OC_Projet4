@@ -10,19 +10,23 @@ public class Meeting {
 
     private Room location;
 
+    private String date;
+
     private String hour;
 
     private List<User> participants;
 
-    public Meeting(long id, String subject, Room location, String hour, List<User> participants) {
+    public Meeting(long id, String subject, Room location, String date, String hour, List<User> participants) {
         this.id = id;
         this.subject = subject;
         this.location = location;
+        this.date = date;
         this.hour = hour;
         this.participants = participants;
     }
 
     public Meeting(String subject, Room location, String hour, List<User> participants) {
+        this.id = System.currentTimeMillis();
         this.subject = subject;
         this.location = location;
         this.hour = hour;
@@ -67,5 +71,13 @@ public class Meeting {
 
     public void setParticipants(List<User> participants) {
         this.participants = participants;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -111,38 +111,17 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override public void onPositiveButtonClick(Long selection) {
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTimeInMillis(selection);
-                date = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(calendar.getTime());
+                date = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(calendar.getTime());
                 initHourView();
             }
         });
     }
 
     public void initHourView(){
-        /*final MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
-                .setTitleText("Select hour")
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .build();*/
-
         TimePickerDialog timePicker = new TimePickerDialog(this,listenerTime,10, 10, true);
         timePicker.setTitle("select hour");
         timePicker.create();
         timePicker.show();
-
-
-
-        /*timePicker.show(getSupportFragmentManager(), "time");
-        timePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int hourSelect = timePicker.getHour();
-                int minuteSelect = timePicker.getMinute();
-
-                hour = hourSelect + ":" + minuteSelect;
-
-                String dateSelected = date + " " + hour;
-                binding.date.setText(dateSelected);
-            }
-        });*/
     }
 
     public void initParticipantsView(){
