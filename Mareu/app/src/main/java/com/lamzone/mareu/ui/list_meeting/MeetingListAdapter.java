@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,26 +23,28 @@ import java.util.List;
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.MeetingListViewHolder> {
 
     private final List<Meeting> mMeeting;
-    private Context context;
+    private ListMeetingFragment fragment;
 
 
-    public MeetingListAdapter(List<Meeting> meeting) {
+    public MeetingListAdapter(List<Meeting> meeting, ListMeetingFragment fragment) {
         this.mMeeting = meeting;
+        this.fragment = fragment;
     }
 
     static class MeetingListViewHolder extends RecyclerView.ViewHolder {
         private final ImageView meetingImage;
         private final TextView meetingName;
         private final TextView participantsName;
+        private final ImageButton deleteButton;
 
         private MeetingListViewHolder(View itemView) {
             super(itemView);
             meetingImage = itemView.findViewById(R.id.imageView);
             meetingName = itemView.findViewById(R.id.meeting);
             participantsName = itemView.findViewById(R.id.participants);
+            deleteButton = itemView.findViewById(R.id.delete);
         }
     }
-
 
     @NonNull
     @Override
@@ -52,7 +55,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MeetingListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MeetingListViewHolder holder, final int position) {
         Meeting meeting = mMeeting.get(position);
         String textMeeting = meeting.getLocation().getRoom() + " - "+meeting.getDate() +" - " + meeting.getHour() + " - " + meeting.getSubject();
 
@@ -73,6 +76,13 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
         holder.meetingName.setText(textMeeting);
         holder.participantsName.setText(textParticipants);
         holder.meetingImage.setBackground(shape);
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.deleteMeeting(mMeeting.get(position));
+            }
+        });
     }
 
     @Override

@@ -25,6 +25,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.di.DI;
+import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.meeting.MeetingApiService;
 
@@ -62,7 +63,11 @@ public class ListMeetingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter = new MeetingListAdapter(mApiService.getMeeting());
+        initList();
+    }
+
+    public void initList(){
+        mAdapter = new MeetingListAdapter(mApiService.filterMeeting(null, dateFilterData, roomFilterData), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -90,7 +95,6 @@ public class ListMeetingFragment extends Fragment {
                 builder.setTitle(R.string.salle)
                         .setAdapter(roomAdapter, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                //filterRoom.setText(roomAdapter.getItem(which).getRoom());
                                 getDataFilter(filterRoom,roomAdapter.getItem(which).getRoom());
                             }
                         });
@@ -102,17 +106,8 @@ public class ListMeetingFragment extends Fragment {
         filterDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialDatePicker<Long> datePicker = createDatePicker();
+                MaterialDatePicker<Long> datePicker = createDatePicker(filterDate);
                 datePicker.show(getActivity().getSupportFragmentManager(), "date");
-
-                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-                    @Override public void onPositiveButtonClick(Long selection) {
-                        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-                        calendar.setTimeInMillis(selection);
-                        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(calendar.getTime());
-                        getDataFilter(filterDate, date);
-                    }
-                });
             }
         });
 
@@ -137,19 +132,29 @@ public class ListMeetingFragment extends Fragment {
         } else if (chip.getId() == R.id.filter_room){
             roomFilterData = data;
         }
-        mAdapter = new MeetingListAdapter(mApiService.filterMeeting(null, dateFilterData, roomFilterData));
-        mRecyclerView.setAdapter(mAdapter);
+        initList();
     }
 
-    private MaterialDatePicker<Long> createDatePicker(){
-        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now());
+    private MaterialDatePicker<Long> createDatePicker(final Chip filterDate){
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .setTitleText("Select date")
-                .setCalendarConstraints(constraintsBuilder.build())
                 .build();
 
+        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override public void onPositiveButtonClick(Long selection) {
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.setTimeInMillis(selection);
+                String date = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(calendar.getTime());
+                getDataFilter(filterDate, date);
+            }
+        });
+
         return datePicker;
+    }
+
+    public void deleteMeeting(Meeting meeting){
+        mApiService.deleteMeeting(meeting);
+        initList();
     }
 }
