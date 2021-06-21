@@ -39,7 +39,7 @@ public class MainMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> filterMeeting(@Nullable String date, @Nullable String hour, @Nullable String room) {
+    public List<Meeting> filterMeeting(@Nullable long date, @Nullable String hour, @Nullable String room) {
         List<Meeting> meetingsFilter = new ArrayList<>(meetings);
         if (date != null){
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

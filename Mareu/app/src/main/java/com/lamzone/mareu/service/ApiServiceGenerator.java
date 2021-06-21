@@ -34,17 +34,17 @@ public abstract class ApiServiceGenerator {
     );
 
     public static List<Meeting> DUMMY_MEETING = Arrays.asList(
-        new Meeting(1, "Peach", DUMMY_ROOM.get(0), "18/05/2021", "14:00", Arrays.asList(
+        new Meeting(1, "Peach", DUMMY_ROOM.get(0), 1621288800000L, "14:00", Arrays.asList(
                 DUMMY_USER.get(0),
                 DUMMY_USER.get(1),
                 DUMMY_USER.get(2)
                 )),
-        new Meeting(2, "Mario", DUMMY_ROOM.get(1),  "01/10/2021","13:00", Arrays.asList(
+        new Meeting(2, "Mario", DUMMY_ROOM.get(1), 1626991200000L ,"13:00", Arrays.asList(
                 DUMMY_USER.get(3),
                 DUMMY_USER.get(4),
                 DUMMY_USER.get(5)
         )),
-        new Meeting(3, "Luigi", DUMMY_ROOM.get(2),  "23/07/2021","16:00", Arrays.asList(
+        new Meeting(3, "Luigi", DUMMY_ROOM.get(2),  1633039200000L,"16:00", Arrays.asList(
                 DUMMY_USER.get(6),
                 DUMMY_USER.get(2),
                 DUMMY_USER.get(4)

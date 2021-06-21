@@ -1,10 +1,8 @@
 package com.lamzone.mareu.ui.list_meeting;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
-import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.lamzone.mareu.R;
@@ -33,14 +29,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class ListMeetingFragment extends Fragment {
     private MeetingListAdapter mAdapter;
     RecyclerView mRecyclerView;
     private MeetingApiService mApiService;
-    private String dateFilterData;
+    private long dateFilterData;
     private String roomFilterData;
+    private String hourFilterData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +65,7 @@ public class ListMeetingFragment extends Fragment {
     }
 
     public void initList(){
-        mAdapter = new MeetingListAdapter(mApiService.filterMeeting(null, dateFilterData, roomFilterData), this);
+        mAdapter = new MeetingListAdapter(mApiService.filterMeeting(dateFilterData, hourFilterData, roomFilterData), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -85,17 +83,17 @@ public class ListMeetingFragment extends Fragment {
 
         MeetingApiService meetingService = DI.getMeetingApiService();
         List<Room> rooms = meetingService.getRooms();
-        final ArrayAdapter<Room> roomAdapter = new ArrayAdapter<Room>(getActivity(),
+        final ArrayAdapter<Room> roomAdapter = new ArrayAdapter<>(requireActivity(),
                 R.layout.item_dropdown, rooms);
 
         filterRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
                 builder.setTitle(R.string.salle)
                         .setAdapter(roomAdapter, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                getDataFilter(filterRoom,roomAdapter.getItem(which).getRoom());
+                                getDataFilter(filterRoom, Objects.requireNonNull(roomAdapter.getItem(which)).getRoom());
                             }
                         });
                 builder.create();
@@ -107,7 +105,7 @@ public class ListMeetingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MaterialDatePicker<Long> datePicker = createDatePicker(filterDate);
-                datePicker.show(getActivity().getSupportFragmentManager(), "date");
+                datePicker.show(requireActivity().getSupportFragmentManager(), "date");
             }
         });
 

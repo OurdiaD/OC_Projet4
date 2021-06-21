@@ -4,29 +4,23 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.MultiAutoCompleteTextView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
-import com.google.android.material.timepicker.MaterialTimePicker;
-import com.google.android.material.timepicker.TimeFormat;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.databinding.ActivityAddMeetingBinding;
 import com.lamzone.mareu.di.DI;
@@ -43,13 +37,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
 
-import static android.view.KeyEvent.ACTION_MULTIPLE;
-import static android.view.KeyEvent.KEYCODE_COMMA;
-import static android.view.KeyEvent.KEYCODE_SEMICOLON;
-import static android.view.KeyEvent.KEYCODE_SPACE;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_PREVIOUS;
-import static android.view.inputmethod.EditorInfo.IME_NULL;
-
 public class AddMeetingActivity extends AppCompatActivity {
 
     ActivityAddMeetingBinding binding;
@@ -58,7 +45,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     private UserApiService userService;
     private List<Room> rooms;
     List<User> users;
-    String date;
+    String dateShow;
+    long dateMilli;
     String hour;
     MultiAutoCompleteTextView participantsTextView;
     AutoCompleteTextView dropDownRoomView;
@@ -109,9 +97,11 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override public void onPositiveButtonClick(Long selection) {
-                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(selection);
-                date = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(calendar.getTime());
+                Log.d("lol date",""+ calendar.getTimeInMillis());
+                dateMilli = calendar.getTimeInMillis();
+                dateShow = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(dateMilli);
                 initHourView();
             }
         });
@@ -175,7 +165,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
 
             List<User> usersSelected = userService.getUsersSelected(participants);
-            Meeting meeting = new Meeting(subject, roomSelected, hour, usersSelected);
+            Meeting meeting = new Meeting(subject, roomSelected, dateMilli, hour, usersSelected);
             meetingService.createMeeting(meeting);
             finish();
         }
@@ -224,7 +214,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             hour = hourOfDay + ":" + minute;
 
-            String dateSelected = date + " " + hour;
+            String dateSelected = dateShow + " " + hour;
             binding.date.setText(dateSelected);
         }
     };

@@ -18,7 +18,9 @@ import com.lamzone.mareu.R;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.MeetingListViewHolder> {
 
@@ -57,7 +59,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
     @Override
     public void onBindViewHolder(@NonNull MeetingListViewHolder holder, final int position) {
         Meeting meeting = mMeeting.get(position);
-        String textMeeting = meeting.getLocation().getRoom() + " - "+meeting.getDate() +" - " + meeting.getHour() + " - " + meeting.getSubject();
+        String dateShow = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(meeting.getDate());
+        String textMeeting = meeting.getLocation().getRoom() + " - "+ dateShow +" - " + meeting.getHour() + " - " + meeting.getSubject();
 
         StringBuilder textParticipants = new StringBuilder();
         int i = 0;
