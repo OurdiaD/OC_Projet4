@@ -10,13 +10,13 @@ public class Meeting {
 
     private Room location;
 
-    private long date;
+    private String date;
 
     private String hour;
 
     private List<User> participants;
 
-    public Meeting(long id, String subject, Room location, long date, String hour, List<User> participants) {
+    public Meeting(long id, String subject, Room location, String date, String hour, List<User> participants) {
         this.id = id;
         this.subject = subject;
         this.location = location;
@@ -25,7 +25,7 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public Meeting(String subject, Room location, long date, String hour, List<User> participants) {
+    public Meeting(String subject, Room location, String date, String hour, List<User> participants) {
         this.id = System.currentTimeMillis();
         this.subject = subject;
         this.location = location;
@@ -74,11 +74,11 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

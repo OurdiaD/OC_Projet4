@@ -165,7 +165,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
 
             List<User> usersSelected = userService.getUsersSelected(participants);
-            Meeting meeting = new Meeting(subject, roomSelected, dateMilli, hour, usersSelected);
+            Meeting meeting = new Meeting(subject, roomSelected, dateShow, hour, usersSelected);
             meetingService.createMeeting(meeting);
             finish();
         }

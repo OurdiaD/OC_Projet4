@@ -36,7 +36,7 @@ public class ListMeetingFragment extends Fragment {
     private MeetingListAdapter mAdapter;
     RecyclerView mRecyclerView;
     private MeetingApiService mApiService;
-    private long dateFilterData;
+    private String dateFilterData;
     private String roomFilterData;
     private String hourFilterData;
 
