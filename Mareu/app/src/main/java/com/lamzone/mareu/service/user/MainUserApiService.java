@@ -28,8 +28,8 @@ public class MainUserApiService implements UserApiService {
     public List<User> getUsersSelected(String selected){
         String[] selectedList = selected.split(", ");
         List<User> selectedUser = new ArrayList<>();
-        boolean userFound = false;
         for (String mail : selectedList){
+            boolean userFound = false;
             for (User user : users){
                 if (mail.equals(user.getMail())){
                     selectedUser.add(user);

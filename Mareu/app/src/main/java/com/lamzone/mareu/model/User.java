@@ -11,6 +11,7 @@ public class User {
     }
 
     public User(String mail) {
+        this.id = System.currentTimeMillis();
         this.mail = mail;
     }
 

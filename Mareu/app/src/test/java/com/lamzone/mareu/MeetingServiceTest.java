@@ -16,9 +16,7 @@ import java.util.List;
 
 import static com.lamzone.mareu.service.ApiServiceGenerator.DUMMY_ROOM;
 import static com.lamzone.mareu.service.ApiServiceGenerator.DUMMY_USER;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
@@ -36,20 +34,20 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void getAllMeeting() {
+    public void getAllMeetingTest() {
         List<Meeting> meetings = service.getMeeting();
         assertTrue(meetings.size() == sizeBaseList && meetings.containsAll(baseList));
     }
 
     @Test
-    public void deleteMeeting() {
+    public void deleteMeetingTest() {
         Meeting meetingToDelete = service.getMeeting().get(0);
         service.deleteMeeting(meetingToDelete);
         assertFalse(service.getMeeting().contains(meetingToDelete));
     }
 
     @Test
-    public void createMeeting() {
+    public void createMeetingTest() {
         Meeting meeting = new Meeting(
                 System.currentTimeMillis(),
                 "Link",
@@ -64,7 +62,7 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void filterRoom(){
+    public void filterRoomTest(){
         Meeting meetingSearch = service.getMeeting().get(0);
         List<Meeting> result = service.filterMeeting(
                 null,
@@ -74,7 +72,7 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void filterDate(){
+    public void filterDateTest(){
         Meeting meetingSearch = service.getMeeting().get(0);
         List<Meeting> result = service.filterMeeting(
                 meetingSearch.getDate(),
@@ -84,7 +82,7 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void filterAll(){
+    public void filterAllTest(){
         Meeting meetingSearch = service.getMeeting().get(0);
         List<Meeting> result = service.filterMeeting(
                 meetingSearch.getDate(),
@@ -94,7 +92,7 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void getRooms(){
+    public void getRoomsTest(){
         List<Room> rooms = service.getRooms();
         List<Room> expectedRooms = DUMMY_ROOM;
 
