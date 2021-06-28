@@ -63,7 +63,6 @@ public class ListMeetingTest {
        onView(allOf(withId(R.id.meeting), withText("Reunion A - 18/05/2021 - 14:00 - Peach"),
                 withParent(withParent(withId(R.id.meeting_list))),
                 isDisplayed()));
-
     }
 
     @Test
