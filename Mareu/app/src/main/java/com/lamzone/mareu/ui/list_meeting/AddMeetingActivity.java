@@ -1,6 +1,7 @@
 package com.lamzone.mareu.ui.list_meeting;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spanned;
@@ -29,6 +30,7 @@ import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.model.User;
 import com.lamzone.mareu.service.meeting.MeetingApiService;
 import com.lamzone.mareu.service.user.UserApiService;
+import com.lamzone.mareu.ui.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -218,4 +220,13 @@ public class AddMeetingActivity extends AppCompatActivity {
             binding.date.setText(dateSelected);
         }
     };
+
+    @Override
+    public void finish() {
+        super.finish();
+        if(!isTaskRoot()){
+            startActivity(new Intent(this, MainActivity.class));
+        }
+
+    }
 }
