@@ -1,12 +1,12 @@
 package com.lamzone.mareu.ui.list_meeting;
 
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +30,6 @@ import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.model.User;
 import com.lamzone.mareu.service.meeting.MeetingApiService;
 import com.lamzone.mareu.service.user.UserApiService;
-import com.lamzone.mareu.ui.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,6 +58,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         view = binding.getRoot();
         setContentView(view);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         meetingService = DI.getMeetingApiService();
         userService = DI.getUserApiService();
@@ -221,11 +221,10 @@ public class AddMeetingActivity extends AppCompatActivity {
     };
 
     @Override
-    public void finish() {
-        super.finish();
-        if(!isTaskRoot()){
-            startActivity(new Intent(this, MainActivity.class));
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
-
+        return super.onOptionsItemSelected(item);
     }
 }

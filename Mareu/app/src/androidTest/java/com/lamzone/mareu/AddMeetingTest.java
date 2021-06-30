@@ -4,8 +4,9 @@ import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
-import com.lamzone.mareu.ui.list_meeting.AddMeetingActivity;
+import com.lamzone.mareu.ui.MainActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -13,10 +14,12 @@ import java.text.SimpleDateFormat;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -27,8 +30,14 @@ import static org.hamcrest.Matchers.containsString;
 public class AddMeetingTest {
     String today;
     @Rule
-    public ActivityScenarioRule<AddMeetingActivity> activitySenario
-            = new ActivityScenarioRule<>(AddMeetingActivity.class);
+    public ActivityScenarioRule<MainActivity> activitySenario
+            = new ActivityScenarioRule<>(MainActivity.class);
+
+    @Before
+    public void setUp() {
+        onView(withId(R.id.add_meeting)).perform(click());
+        onView(withId(R.id.save_meeting)).check(matches(isDisplayed()));
+    }
 
     @Test
     public void date_added(){
@@ -76,16 +85,24 @@ public class AddMeetingTest {
 
     @Test
     public void newMeeting(){
-        room_added();
-        users_added();
-        onView(withId(R.id.subject)).perform(typeText("Arthas"));
         date_added();
+        room_added();
+        onView(withId(R.id.subject)).perform(typeText("Arthas"));
+        users_added();
+        onView(withId(R.id.subject)).perform(closeSoftKeyboard());
         onView(withId(R.id.save_meeting)).perform(click());
         onView(withId(R.id.meeting_list)).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.meeting_list))
-                .check(matches(hasChildCount(4)));
+                .check(matches(hasChildCount(5)));
         onView(allOf(withId(R.id.meeting), withText("Reunion A - "+today+" - 10:10 - Arthas"),
                 withParent(withParent(withId(R.id.meeting_list))),
                 isDisplayed()));
+    }
+
+    @Test
+    public void back_home(){
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
+        onView(ViewMatchers.withId(R.id.meeting_list))
+                .check(matches(isDisplayed()));
     }
 }
