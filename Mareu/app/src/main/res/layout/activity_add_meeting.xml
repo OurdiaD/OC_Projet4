@@ -104,7 +104,8 @@
             <MultiAutoCompleteTextView
                 android:id="@+id/participantsSelected"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi"/>
             <!--android:imeOptions="actionGo"
             android:inputType="text"
             android:maxLines="1"-->

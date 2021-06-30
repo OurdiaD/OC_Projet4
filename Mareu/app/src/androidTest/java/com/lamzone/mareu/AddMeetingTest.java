@@ -36,7 +36,7 @@ public class AddMeetingTest {
     @Before
     public void setUp() {
         onView(withId(R.id.add_meeting)).perform(click());
-        onView(withId(R.id.save_meeting)).check(matches(isDisplayed()));
+        onView(withId(R.id.add_meeting_view)).check(matches(isDisplayed()));
     }
 
     @Test
