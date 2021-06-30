@@ -80,7 +80,7 @@ public class AddMeetingTest {
                 .perform(click());
 
         /*onView(withId(R.id.participants_meeting)).perform(click());
-        onView(withText("alex@lamzone.com"))
+        onView(withSpinnerText("alex@lamzone.com"))
                 .inRoot(RootMatchers.isPlatformPopup())
                 .perform(click());*/
 
