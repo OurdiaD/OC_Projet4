@@ -1,7 +1,5 @@
 package com.lamzone.mareu.ui.list_meeting;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -18,14 +16,12 @@ import com.lamzone.mareu.R;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.User;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.MeetingListViewHolder> {
 
     private final List<Meeting> mMeeting;
-    private ListMeetingFragment fragment;
+    private final ListMeetingFragment fragment;
 
 
     public MeetingListAdapter(List<Meeting> meeting, ListMeetingFragment fragment) {

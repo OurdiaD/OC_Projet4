@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
-import com.lamzone.mareu.model.User;
 
 import java.util.List;
 

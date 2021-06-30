@@ -1,8 +1,6 @@
 package com.lamzone.mareu.service.user;
 
 import com.lamzone.mareu.model.User;
-import com.lamzone.mareu.model.Room;
-import com.lamzone.mareu.model.User;
 
 import java.util.List;
 

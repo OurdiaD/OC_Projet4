@@ -1,59 +1,27 @@
 package com.lamzone.mareu;
 
-import android.widget.DatePicker;
-
-import com.google.android.material.datepicker.MaterialDatePicker;
-
-import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.PickerActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.rule.ActivityTestRule;
 
-
-import com.lamzone.mareu.model.User;
-import com.lamzone.mareu.ui.MainActivity;
 import com.lamzone.mareu.ui.list_meeting.AddMeetingActivity;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 
-
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.CursorMatchers.withRowString;
-import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
-import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static java.lang.Thread.sleep;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 
 public class AddMeetingTest {

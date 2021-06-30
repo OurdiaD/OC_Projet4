@@ -37,7 +37,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.TimeZone;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
