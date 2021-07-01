@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.TimePicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -125,38 +127,39 @@ public class AddMeetingActivity extends AppCompatActivity {
         participantsTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         participantsTextView.setThreshold(1);
         participantsTextView.performValidation();
-        //participantsTextView.addTextChangedListener(watcherMail);
-        participantsTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                User selectedUser = (User) adapterView.getItemAtPosition(i);
-                createRecipientChip(selectedUser);
-            }
-        });
+        participantsTextView.addTextChangedListener(watcherMail);
     }
 
-    private void createRecipientChip(User selectedUser) {
-        ChipDrawable chip = ChipDrawable.createFromResource(this, R.xml.standalone_chip);
-        ImageSpan span = new ImageSpan(chip);
-        int cursorPosition = participantsTextView.getSelectionStart();
-        int spanLength = selectedUser.getMail().length() + 2;
-        Editable text = participantsTextView.getText();
-        chip.setText(selectedUser.getMail());
-        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
-        text.setSpan(span, cursorPosition - spanLength, cursorPosition, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+    private void createRecipientChip(String selectedUser) {
+        selectedUser = selectedUser.replace(",", "");
+        selectedUser = selectedUser.replace(" ", "");
 
-        /*Chip chip = new Chip(this);
+        final Chip chip = new Chip(this);
         chip.setText(selectedUser);
-        binding.participantsMeeting.addView(chip);*/
+        chip.setCheckable(false);
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.recipientGroupFL.removeView(chip);
+            }
+        });
+        binding.recipientGroupFL.addView(chip);
 
     }
 
     private final View.OnClickListener listenerCreate = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            StringBuilder participants = new StringBuilder();
+            int viewUser = binding.recipientGroupFL.getChildCount();
+            for(int i = 0; i < viewUser; i++){
+                Chip chip = (Chip) binding.recipientGroupFL.getChildAt(i);
+                participants.append(chip.getText()).append(", ");
+            }
+
+
             String subject = String.valueOf(binding.subject.getText());
             Room roomSelected = null;
-            String participants = String.valueOf(participantsTextView.getText());
 
             for (Room room : rooms){
                 if (room.getRoom().equals(String.valueOf(dropDownRoomView.getText()))){
@@ -165,7 +168,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }
             }
 
-            List<User> usersSelected = userService.getUsersSelected(participants);
+            List<User> usersSelected = userService.getUsersSelected(participants.toString());
             Meeting meeting = new Meeting(subject, roomSelected, dateShow, hour, usersSelected);
             meetingService.createMeeting(meeting);
             finish();
@@ -173,11 +176,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     };
 
 
-    /*private final TextWatcher watcherMail = new TextWatcher() {
+    private final TextWatcher watcherMail = new TextWatcher() {
         boolean change;
-        CharSequence newtext;
-        int sizeLast=0;
-        int sizeCurrent=0;
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -187,7 +187,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (s.length() > 0 ){
                 String check = String.valueOf(s.subSequence(s.length() -1, s.length()));
-                //String check = String.valueOf(s.subSequence(0, count));
                 if (check.equals(" ") || check.equals(",") || check.equals(";")){
                     change = true;
                 }
@@ -197,18 +196,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable s) {
             if (change){
-                *//*String list = String.valueOf(s);
-                String[] arrList = list.split(" ");
-                String user = arrList[arrList.length - 1];
-                user = user.replace(",","");
-                createRecipientChip(user);*//*
                 createRecipientChip(String.valueOf(s));
                 change = false;
-                //sizeLast = s.length();
                 s.clear();
             }
         }
-    };*/
+    };
 
     TimePickerDialog.OnTimeSetListener listenerTime = new TimePickerDialog.OnTimeSetListener() {
         @Override

@@ -10,20 +10,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/recipient_group_FL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center_vertical"
+            app:flexWrap="wrap"
+            app:alignItems="stretch"
+            app:alignContent="space_around"
+            app:showDivider="beginning|middle|end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/participants_meeting"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/users"
+            app:startIconDrawable="@drawable/ic_baseline_person_outline_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipient_group_FL">
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/participantsSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagNoExtractUi"
+                android:hint="@string/users">
+            </MultiAutoCompleteTextView>
+            <!--android:imeOptions="actionGo"
+            android:inputType="text"
+            android:maxLines="1"-->
+
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/date_meeting"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:clickable="true"
             android:focusable="true"
             android:hint="@string/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/participants_meeting"
             app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -87,30 +129,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/participants_meeting"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/users"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/room_meeting"
-            app:startIconDrawable="@drawable/ic_baseline_person_outline_24">
-
-            <MultiAutoCompleteTextView
-                android:id="@+id/participantsSelected"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi"/>
-            <!--android:imeOptions="actionGo"
-            android:inputType="text"
-            android:maxLines="1"-->
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/save_meeting"
@@ -121,7 +139,7 @@
             android:text="save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/participants_meeting" />
+            app:layout_constraintTop_toBottomOf="@+id/room_meeting" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
