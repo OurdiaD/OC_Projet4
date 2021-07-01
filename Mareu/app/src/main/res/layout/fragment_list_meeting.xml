@@ -30,7 +30,7 @@
                 app:chipIcon="@drawable/ic_baseline_meeting_room_24"
                 app:chipIconVisible="true"
                 app:chipStartPadding="10dp"
-                app:closeIconEnabled="true" />
+                app:closeIconEnabled="false" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/filter_date"
@@ -44,7 +44,7 @@
                 app:chipIconSize="20dp"
                 app:chipIconVisible="true"
                 app:chipStartPadding="10dp"
-                app:closeIconEnabled="true" />
+                app:closeIconEnabled="false" />
         </com.google.android.material.chip.ChipGroup>
     </FrameLayout>
 

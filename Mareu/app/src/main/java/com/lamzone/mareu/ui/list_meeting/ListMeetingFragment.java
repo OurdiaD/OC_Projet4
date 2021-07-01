@@ -119,12 +119,14 @@ public class ListMeetingFragment extends Fragment {
             public void onClick(View v) {
                 getDataFilter(chip, null);
                 chip.setText(name);
+                chip.setCloseIconVisible(false);
             }
         };
     }
 
     private void getDataFilter(Chip chip, String data){
         chip.setText(data);
+        chip.setCloseIconVisible(true);
         if(chip.getId() == R.id.filter_date){
             dateFilterData = data;
         } else if (chip.getId() == R.id.filter_room){
