@@ -61,24 +61,12 @@ public class AddMeetingTest {
                 .inRoot(RootMatchers.isPlatformPopup())
                 .perform(click());
 
-        /*onView(withId(R.id.participants_meeting)).perform(click());
-        onView(withSpinnerText("alex@lamzone.com"))
-                .inRoot(RootMatchers.isPlatformPopup())
-                .perform(click());*/
-
+        onView(withId(R.id.participantsSelected)).perform(typeText("laura@lamzone.com "));
 
         onView(withId(R.id.recipient_group_FL))
-                .check(matches(hasChildCount(1)))
-                .check(matches(withChild(withText("maxime@lamzone.com"))));
-                //.check(matches(withText(containsString("maxime@lamzone.com"))));
-        //onView(withId(R.id.participantsSelected)).check(matches(withText(containsString("alex@lamzone.com"))));
-        /*try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-
+                .check(matches(hasChildCount(2)))
+                .check(matches(withChild(withText("maxime@lamzone.com"))))
+                .check(matches(withChild(withText("laura@lamzone.com"))));
     }
 
     @Test
@@ -103,6 +91,9 @@ public class AddMeetingTest {
         onView(ViewMatchers.withId(R.id.meeting_list))
                 .check(matches(hasChildCount(5)));
         onView(allOf(withId(R.id.meeting), withText("Reunion A - "+today+" - 10:10 - Arthas"),
+                withParent(withParent(withId(R.id.meeting_list))),
+                isDisplayed()));
+        onView(allOf(withId(R.id.meeting), withText("maxime@lamzone.com, laura@lamzone.com"),
                 withParent(withParent(withId(R.id.meeting_list))),
                 isDisplayed()));
     }
