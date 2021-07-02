@@ -22,6 +22,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
 
     private final List<Meeting> mMeeting;
     private final ListMeetingFragment fragment;
+    private MeetingListViewHolder lastHolder;
 
 
     public MeetingListAdapter(List<Meeting> meeting, ListMeetingFragment fragment) {
@@ -53,7 +54,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MeetingListViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MeetingListViewHolder holder, final int position) {
         Meeting meeting = mMeeting.get(position);
         //String dateShow = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(meeting.getDate());
         String textMeeting = meeting.getLocation().getRoom() + " - "+ meeting.getDate() +" - " + meeting.getHour() + " - " + meeting.getSubject();
@@ -82,10 +83,28 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
                 fragment.deleteMeeting(mMeeting.get(position));
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expendable(holder);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mMeeting.size();
+    }
+
+    public void expendable(MeetingListViewHolder holder){
+        if (lastHolder != null){
+            lastHolder.meetingName.setSingleLine(true);
+            lastHolder.participantsName.setSingleLine(true);
+        }
+
+        holder.meetingName.setSingleLine(false);
+        holder.participantsName.setSingleLine(false);
+        lastHolder = holder;
     }
 }
