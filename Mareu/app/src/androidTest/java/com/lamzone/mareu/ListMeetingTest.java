@@ -1,8 +1,5 @@
 package com.lamzone.mareu;
 
-import android.icu.util.ULocale;
-import android.util.Log;
-
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -21,8 +18,6 @@ import org.junit.runner.RunWith;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

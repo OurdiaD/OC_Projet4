@@ -39,21 +39,13 @@ public class MainMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> filterMeeting(@Nullable String date, @Nullable String hour, @Nullable String room) {
+    public List<Meeting> filterMeeting(@Nullable String date, @Nullable String room) {
         List<Meeting> meetingsFilter = new ArrayList<>(meetings);
         if (date != null){
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             for (Meeting meeting : meetings){
                 //if (!Objects.equals(dateFormat.parse(date), dateFormat.parse(meeting.getDate()))){
                 if (!Objects.equals(date, meeting.getDate())){
-                    meetingsFilter.remove(meeting);
-                }
-            }
-        }
-        if (hour != null){
-            SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
-            for (Meeting meeting : meetings){
-                if (!Objects.equals(hour, meeting.getHour())){
                     meetingsFilter.remove(meeting);
                 }
             }
@@ -66,18 +58,5 @@ public class MainMeetingApiService implements MeetingApiService {
             }
         }
         return meetingsFilter;
-    }
-
-
-    public static List<String> getListString(List<?> data){
-        List<String> list = new ArrayList<>();
-        for (Object obj : data){
-            if (obj instanceof User){
-                list.add(((User) obj).getMail());
-            } else if (obj instanceof Room){
-                list.add(((Room) obj).getRoom());
-            }
-        }
-        return list;
     }
 }

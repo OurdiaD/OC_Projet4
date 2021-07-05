@@ -33,12 +33,10 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 public class ListMeetingFragment extends Fragment {
-    private MeetingListAdapter mAdapter;
     RecyclerView mRecyclerView;
     private MeetingApiService mApiService;
     private String dateFilterData;
     private String roomFilterData;
-    private String hourFilterData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class ListMeetingFragment extends Fragment {
     }
 
     public void initList(){
-        mAdapter = new MeetingListAdapter(mApiService.filterMeeting(dateFilterData, hourFilterData, roomFilterData), this);
+        MeetingListAdapter mAdapter = new MeetingListAdapter(mApiService.filterMeeting(dateFilterData, roomFilterData), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 

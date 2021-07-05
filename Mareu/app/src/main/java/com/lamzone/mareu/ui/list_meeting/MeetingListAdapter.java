@@ -56,7 +56,6 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
     @Override
     public void onBindViewHolder(@NonNull final MeetingListViewHolder holder, final int position) {
         Meeting meeting = mMeeting.get(position);
-        //String dateShow = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(meeting.getDate());
         String textMeeting = meeting.getLocation().getRoom() + " - "+ meeting.getDate() +" - " + meeting.getHour() + " - " + meeting.getSubject();
 
         StringBuilder textParticipants = new StringBuilder();

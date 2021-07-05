@@ -52,7 +52,7 @@ public class MeetingServiceTest {
                 System.currentTimeMillis(),
                 "Link",
                 DUMMY_ROOM.get(5),
-                "18/06/2021"/*1621288800000L*/,
+                "18/06/2021",
                 "12:00",
                 Arrays.asList(DUMMY_USER.get(5), DUMMY_USER.get(1), DUMMY_USER.get(2))
         );
@@ -66,7 +66,6 @@ public class MeetingServiceTest {
         Meeting meetingSearch = service.getMeeting().get(0);
         List<Meeting> result = service.filterMeeting(
                 null,
-                null,
                 meetingSearch.getLocation().getRoom());
         assertTrue(result.size() == 2 && result.contains(meetingSearch));
     }
@@ -76,7 +75,6 @@ public class MeetingServiceTest {
         Meeting meetingSearch = service.getMeeting().get(0);
         List<Meeting> result = service.filterMeeting(
                 meetingSearch.getDate(),
-                null,
                 null);
         assertTrue(result.size() == 1 && result.contains(meetingSearch));
     }
@@ -86,7 +84,6 @@ public class MeetingServiceTest {
         Meeting meetingSearch = service.getMeeting().get(0);
         List<Meeting> result = service.filterMeeting(
                 meetingSearch.getDate(),
-                null,
                 meetingSearch.getLocation().getRoom());
         assertTrue(result.size() == 1 && result.contains(meetingSearch));
     }

@@ -17,5 +17,5 @@ public interface MeetingApiService {
 
     List<Room> getRooms();
 
-    List<Meeting> filterMeeting(@Nullable String date, @Nullable String hour, @Nullable String room);
+    List<Meeting> filterMeeting(@Nullable String date, @Nullable String room);
 }
