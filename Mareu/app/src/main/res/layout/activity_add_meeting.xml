@@ -35,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/users"
+            android:labelFor="@+id/participantsSelected"
             app:startIconDrawable="@drawable/ic_baseline_person_outline_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +45,7 @@
                 android:id="@+id/participantsSelected"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagNoExtractUi"
-                android:hint="@string/users">
+                android:imeOptions="flagNoExtractUi">
             </MultiAutoCompleteTextView>
             <!--android:imeOptions="actionGo"
             android:inputType="text"

@@ -68,7 +68,7 @@ public class MeetingServiceTest {
                 null,
                 null,
                 meetingSearch.getLocation().getRoom());
-        assertTrue(result.size() == 1 && result.contains(meetingSearch));
+        assertTrue(result.size() == 2 && result.contains(meetingSearch));
     }
 
     @Test
