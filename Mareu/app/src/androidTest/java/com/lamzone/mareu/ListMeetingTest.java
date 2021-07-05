@@ -1,5 +1,9 @@
 package com.lamzone.mareu;
 
+import android.icu.util.ULocale;
+import android.util.Log;
+
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -17,6 +21,8 @@ import org.junit.runner.RunWith;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -84,7 +90,7 @@ public class ListMeetingTest {
         selectdate();
         onView(ViewMatchers.withId(R.id.meeting_list))
                 .check(matches(hasChildCount(2)));
-        onView(allOf(withId(R.id.meeting), withText(containsString("07/23/2021")),
+        onView(allOf(withId(R.id.meeting), withText(containsString("23/07/2021")),
                 withParent(withParent(withId(R.id.meeting_list))),
                 isDisplayed()));
     }
@@ -115,9 +121,21 @@ public class ListMeetingTest {
     public void selectdate(){
         onView(withId(R.id.filter_date)).perform(click());
         onView(withId(R.id.mtrl_picker_header_toggle)).perform(click());
-        String today = new SimpleDateFormat("M/d/yy").format(System.currentTimeMillis());
-        onView(withText(today)).perform(replaceText("07/23/2021"));
-        onView(withText("07/23/2021")).perform(closeSoftKeyboard());
+
+        String language = ApplicationProvider.getApplicationContext().getResources().getConfiguration().getLocales().get(0).getLanguage();
+        String patern;
+        String text;
+        if (language.equals("fr")){
+            patern = "dd/MM/yyyy";
+            text ="23/07/2021";
+        } else {
+            patern = "M/d/yy";
+            text ="07/23/2021";
+        }
+
+        String today = new SimpleDateFormat(patern).format(System.currentTimeMillis());
+        onView(withText(today)).perform(replaceText(text));
+        onView(withText(text)).perform(closeSoftKeyboard());
         onView(withText("OK")).perform(click());
     }
 
