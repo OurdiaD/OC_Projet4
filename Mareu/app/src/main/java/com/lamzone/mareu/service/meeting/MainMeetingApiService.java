@@ -4,10 +4,8 @@ import androidx.annotation.Nullable;
 
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
-import com.lamzone.mareu.model.User;
 import com.lamzone.mareu.service.ApiServiceGenerator;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,9 +40,7 @@ public class MainMeetingApiService implements MeetingApiService {
     public List<Meeting> filterMeeting(@Nullable String date, @Nullable String room) {
         List<Meeting> meetingsFilter = new ArrayList<>(meetings);
         if (date != null){
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             for (Meeting meeting : meetings){
-                //if (!Objects.equals(dateFormat.parse(date), dateFormat.parse(meeting.getDate()))){
                 if (!Objects.equals(date, meeting.getDate())){
                     meetingsFilter.remove(meeting);
                 }

@@ -4,7 +4,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -98,7 +97,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override public void onPositiveButtonClick(Long selection) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(selection);
-                Log.d("lol date",""+ calendar.getTimeInMillis());
                 dateMilli = calendar.getTimeInMillis();
                 dateShow = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE).format(dateMilli);
                 initHourView();
